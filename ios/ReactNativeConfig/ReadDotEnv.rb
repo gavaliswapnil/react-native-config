@@ -51,6 +51,12 @@ def read_dot_env(envs_root)
       key = m[:key]
       # Ensure string (in case of empty value) and escape any quotes present in the value.
       val = m[:val].to_s.gsub('"', '\"')
+      #puts "going to read env file key #{key}  #{val}"
+      if key=="ENV"
+          puts "Inside ENV Key #{key}  #{val}"
+        system("sh ./../../build-local-config.sh #{val} ./../../App/Components/Config/FlavorConfig.js")
+        puts "Done ENV Key #{key}  #{val}"
+      end
       h.merge(key => val)
     end
     rescue Errno::ENOENT
