@@ -23,7 +23,11 @@ def getCurrentFlavor() {
 def excuteLocalConfigScript(configName) {
     exec {
         workingDir '.'
-        commandLine 'sh', './../../build-local-config.sh', "$configName", './../../App/Components/Config/FlavorConfig.js'
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            commandLine 'cmd', '/c', '%cd%/../../build-local-config.sh', "$configName", './../../App/Components/Config/FlavorConfig.js'
+        } else {
+            commandLine 'sh', './../../build-local-config.sh', "$configName", './../../App/Components/Config/FlavorConfig.js'
+        }
     }
 }
 
